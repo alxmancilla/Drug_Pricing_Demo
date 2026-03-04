@@ -1,22 +1,31 @@
-# 💊 Drug Pricing Assistant
+# 💊 Drug Pricing AI Agent
 
-An AI-powered pharmaceutical pricing assistant that helps users find the best drug prices using **MongoDB Atlas Hybrid Search** (text + vector) and **GPT-5.2** recommendations.
+An **intelligent AI Agent** powered by **LangChain** and **LangGraph** that helps users find the best drug prices using **MongoDB Atlas Hybrid Search**, **GPT-5.2**, and **persistent memory**.
 
 ## 🌟 Features
+
+### 🤖 **AI Agent with Tools**
+- **LangGraph State Machine** - Intelligent conversation flow with tool calling
+- **5 Specialized Tools** - Search, preferences, history management
+- **Autonomous Decision Making** - Agent decides when to use tools
+- **Multi-turn Conversations** - Maintains context across interactions
+
+### 🧠 **Dual Memory System**
+- **Short-term Memory** - Conversation context within sessions (LangGraph state)
+- **Long-term Memory** - Customer preferences and search history (MongoDB)
+- **Customer-specific** - All memory indexed by `customer_id`
+- **Persistent** - Preferences and history survive across sessions
 
 ### 🔍 **Hybrid Search**
 - **MongoDB Atlas Search** - Fast keyword matching using Lucene
 - **Vector Search** - Semantic understanding using Voyage AI embeddings
 - **Rank Fusion** - Intelligently merges text and vector search results
 
-### 🤖 **AI-Powered Recommendations**
-- **GPT-5.2** via Grove Gateway for intelligent price recommendations
-- Context-aware responses that understand user intent
-- Natural language interaction
-
-### 💬 **Two Interfaces**
-1. **CLI** (`app.py`) - Command-line interface for technical users
-2. **Streamlit UI** (`streamlit_app.py`) - Modern web interface for everyone
+### 💬 **Multiple Interfaces**
+1. **AI Agent CLI** (`agent_app.py`) - Conversational agent with memory
+2. **AI Agent Web UI** (`agent_streamlit_app.py`) - Modern Streamlit interface
+3. **Basic CLI** (`app.py`) - Simple search interface
+4. **Basic Web UI** (`streamlit_app.py`) - Basic Streamlit interface
 
 ### 📊 **Comprehensive Dataset**
 - **53 drug pricing records** across 11 medications
@@ -39,7 +48,7 @@ An AI-powered pharmaceutical pricing assistant that helps users find the best dr
 python3 -m venv venv
 source venv/bin/activate  # On Windows: venv\Scripts\activate
 
-# Install dependencies
+# Install dependencies (includes LangChain, LangGraph, etc.)
 pip install -r requirements.txt
 ```
 
@@ -80,22 +89,56 @@ Follow the instructions printed by `setup_database.py` to create:
 
 ### 5. Run the Application
 
-**Option A: Streamlit Web UI (Recommended)**
+**🤖 Option A: AI Agent with Memory (Recommended)**
 ```bash
+# CLI Agent
+python agent_app.py
+
+# Or Web UI Agent
+streamlit run agent_streamlit_app.py
+```
+
+**📊 Option B: Basic Search Interface**
+```bash
+# Basic CLI
+python app.py
+
+# Or Basic Streamlit UI
 streamlit run streamlit_app.py
 # Or use the quick start script:
 ./run_streamlit.sh  # macOS/Linux
 run_streamlit.bat   # Windows
 ```
 
-**Option B: Command Line Interface**
-```bash
-python3 app.py
-```
-
 ## 🎯 Example Queries
 
-Try these queries in either interface:
+### AI Agent Queries (with Memory & Tools)
+
+```
+# Search queries
+Find Metformin prices in Houston
+What's the cheapest Ozempic in Los Angeles?
+Show me Lisinopril options in Miami
+
+# Preference management
+I prefer CVS pharmacy
+I want generic medications only
+Save my preference for Houston location
+
+# History and context
+What did I search for last time?
+Show me my previous searches
+What are my saved preferences?
+
+# Multi-turn conversations
+Agent: I found Metformin at CVS for $15
+You: Is there anything cheaper?
+Agent: Yes, Walmart has it for $12
+You: Great, I prefer Walmart
+Agent: I've saved your preference for Walmart
+```
+
+### Basic Search Queries
 
 ```
 What's the cheapest Metformin in Houston?
@@ -108,58 +151,185 @@ What's the best price for Gabapentin in Phoenix?
 ## 📁 Project Structure
 
 ```
-BPEpricingDemo/
-├── streamlit_app.py          # Streamlit web UI
-├── app.py                     # CLI application
-├── setup_database.py          # Database setup script
-├── generate_datasets.py       # Dataset generator
-├── test_grove_api.py          # API connectivity test
-├── requirements.txt           # Python dependencies
-├── .env                       # Environment variables (create this)
-├── dataset/                   # Data files (53 records each)
-├── run_streamlit.sh          # Quick start (macOS/Linux)
-└── run_streamlit.bat         # Quick start (Windows)
+Drug_Pricing_Demo/
+├── 🤖 AI Agent Files (LangChain + LangGraph)
+│   ├── agent_app.py                  # AI Agent CLI
+│   ├── agent_streamlit_app.py        # AI Agent Web UI
+│   ├── langgraph_agent_v2.py         # Agent logic with LangGraph
+│   ├── agent_tools.py                # 5 specialized agent tools
+│   └── test_agent_quick.py           # Quick agent test script
+│
+├── 📊 Basic Search Files (Optional)
+│   ├── app.py                        # Basic CLI (non-agent)
+│   └── streamlit_app.py              # Basic Streamlit UI (non-agent)
+│
+├── 🛠️ Setup & Testing
+│   ├── setup_database.py             # Database setup & data loading
+│   ├── generate_datasets.py          # Dataset generator (53 records)
+│   ├── test_grove_api.py             # Grove API connectivity test
+│   └── test_agent.py                 # Full agent test suite
+│
+├── 📚 Documentation
+│   ├── README.md                     # This file (main documentation)
+│   ├── AGENT_README.md               # Agent architecture details
+│   ├── AGENT_COMPARISON.md           # Agent vs Basic comparison
+│   ├── GETTING_STARTED_WITH_AGENT.md # Agent getting started guide
+│   ├── QUICK_FIX_GUIDE.md            # Quick troubleshooting (3 steps)
+│   ├── FIX_401_ERROR.md              # 401 authentication error fix
+│   ├── FIX_VALIDATION_ERROR.md       # Validation error fix
+│   ├── TROUBLESHOOTING.md            # Full troubleshooting guide
+│   └── DATASET_EXPANSION.md          # Dataset details
+│
+├── ⚙️ Configuration
+│   ├── requirements.txt              # Python dependencies
+│   ├── .env                          # Environment variables (create this)
+│   ├── run_agent.sh                  # Agent launcher (macOS/Linux)
+│   ├── run_agent.bat                 # Agent launcher (Windows)
+│   ├── run_streamlit.sh              # Basic UI launcher (macOS/Linux)
+│   └── run_streamlit.bat             # Basic UI launcher (Windows)
+│
+└── 📁 Data
+    └── dataset/                      # JSON data files (53 records each)
 ```
 
 ## 🏗️ Architecture
 
 ### Technology Stack
 
+- **AI Framework**: LangChain + LangGraph
 - **Database**: MongoDB Atlas
 - **Search**: Atlas Search (Lucene) + Vector Search
 - **Embeddings**: Voyage AI (voyage-4-large)
 - **LLM**: OpenAI GPT-5.2 via Grove Gateway
+- **Memory**: LangGraph State + MongoDB (long-term)
 - **Backend**: Python 3.8+
 - **UI**: Streamlit
 
+### AI Agent Architecture
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                      LangGraph Agent                         │
+│  ┌────────────┐      ┌──────────────┐      ┌─────────────┐ │
+│  │   Agent    │─────▶│ Should       │─────▶│   Tools     │ │
+│  │   (LLM)    │◀─────│ Continue?    │◀─────│  Execution  │ │
+│  └────────────┘      └──────────────┘      └─────────────┘ │
+│        │                                           │         │
+│        │                                           │         │
+│        ▼                                           ▼         │
+│  ┌────────────────────────────────────────────────────────┐ │
+│  │              Agent State (Messages)                     │ │
+│  └────────────────────────────────────────────────────────┘ │
+└─────────────────────────────────────────────────────────────┘
+                              │
+                              ▼
+        ┌─────────────────────────────────────────┐
+        │          5 Specialized Tools             │
+        ├─────────────────────────────────────────┤
+        │ 1. search_drug_prices                   │
+        │ 2. save_customer_preference             │
+        │ 3. get_customer_preferences             │
+        │ 4. get_customer_search_history          │
+        │ 5. save_search_to_history               │
+        └─────────────────────────────────────────┘
+                              │
+                              ▼
+        ┌─────────────────────────────────────────┐
+        │         MongoDB Collections              │
+        ├─────────────────────────────────────────┤
+        │ • customer_pricing (search data)        │
+        │ • customer_preferences (long-term)      │
+        │ • customer_search_history (long-term)   │
+        └─────────────────────────────────────────┘
+```
+
 ### Data Flow
 
+**Basic Search:**
 ```
 User Query → Generate Embedding → Hybrid Search → Rank Fusion → LLM Recommendation → Display
 ```
 
+**AI Agent Flow:**
+```
+User Input → Agent (LLM) → Decide Tools → Execute Tools → Update State →
+Agent Response → Save to Memory → Display
+```
+
 ## 🐛 Troubleshooting
 
-**MongoDB Connection Error**
+### Quick Health Check
 ```bash
-python3 -c "from pymongo import MongoClient; import os; from dotenv import load_dotenv; load_dotenv(); client = MongoClient(os.getenv('MONGODB_URI')); print('✅ Connected')"
+# Run comprehensive test
+python test_agent_quick.py
 ```
 
-**Grove API 401 Error**
+### Common Issues
+
+**❌ 401 Authentication Error**
 ```bash
-python3 test_grove_api.py
+# Test Grove API connection
+python test_grove_api.py
+```
+**Fix:** See `QUICK_FIX_GUIDE.md` or `FIX_401_ERROR.md`
+
+**❌ Validation Error (AIMessage content)**
+```
+2 validation errors for AIMessage - content should be a valid string
+```
+**Fix:** Make sure you're using Agent V2 (`langgraph_agent_v2.py`). See `FIX_VALIDATION_ERROR.md`
+
+**❌ MongoDB Connection Error**
+```bash
+python -c "from pymongo import MongoClient; import os; from dotenv import load_dotenv; load_dotenv(); client = MongoClient(os.getenv('MONGODB_URI')); print('✅ Connected')"
 ```
 
-**No Search Results**
+**❌ No Search Results**
 - Verify Atlas Search indexes are created and active
-- Check data exists in `customer_pricing` collection
+- Check data exists: `python -c "from pymongo import MongoClient; import os; from dotenv import load_dotenv; load_dotenv(); client = MongoClient(os.getenv('MONGODB_URI')); print('Records:', client.pricing_demo.customer_pricing.count_documents({}))"`
+
+### Full Troubleshooting Guide
+See **[TROUBLESHOOTING.md](TROUBLESHOOTING.md)** for comprehensive troubleshooting.
 
 ## 📚 Documentation
 
-- **[STREAMLIT_UI.md](STREAMLIT_UI.md)** - Complete Streamlit documentation
+### AI Agent Documentation
+- **[AGENT_README.md](AGENT_README.md)** - Complete agent architecture
+- **[AGENT_COMPARISON.md](AGENT_COMPARISON.md)** - Agent vs Basic comparison
+- **[GETTING_STARTED_WITH_AGENT.md](GETTING_STARTED_WITH_AGENT.md)** - Agent quick start
+
+### Troubleshooting Guides
+- **[QUICK_FIX_GUIDE.md](QUICK_FIX_GUIDE.md)** - Quick 3-step fix for common errors
+- **[FIX_401_ERROR.md](FIX_401_ERROR.md)** - Detailed 401 error fix
+- **[FIX_VALIDATION_ERROR.md](FIX_VALIDATION_ERROR.md)** - Validation error fix
+- **[TROUBLESHOOTING.md](TROUBLESHOOTING.md)** - Full troubleshooting guide
+
+### Other Documentation
+- **[STREAMLIT_UI.md](STREAMLIT_UI.md)** - Streamlit UI documentation
 - **[DATASET_EXPANSION.md](DATASET_EXPANSION.md)** - Dataset details
-- **[GROVE_API_FIX.md](GROVE_API_FIX.md)** - API troubleshooting
+
+## 🎯 Key Differences: Agent vs Basic
+
+| Feature | AI Agent | Basic Search |
+|---------|----------|--------------|
+| **Framework** | LangChain + LangGraph | Direct API calls |
+| **Tools** | 5 specialized tools | None |
+| **Memory** | Short + Long term | None |
+| **Conversations** | Multi-turn | Single query |
+| **Preferences** | Saved per customer | None |
+| **History** | Tracked in MongoDB | None |
+| **Intelligence** | Autonomous decisions | Fixed flow |
+
+See **[AGENT_COMPARISON.md](AGENT_COMPARISON.md)** for detailed comparison.
+
+## 🚀 Next Steps
+
+1. **Start with the AI Agent**: `python agent_app.py`
+2. **Try multi-turn conversations**: Ask follow-up questions
+3. **Set preferences**: "I prefer CVS pharmacy"
+4. **Check history**: "What did I search for?"
+5. **Explore the tools**: See `agent_tools.py`
 
 ---
 
-**Built with ❤️ using MongoDB Atlas, OpenAI GPT-5.2, Voyage AI, and Streamlit**
+**Built with ❤️ using LangChain, LangGraph, MongoDB Atlas, OpenAI GPT-5.2, Voyage AI, and Streamlit**

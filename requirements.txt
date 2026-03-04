@@ -1,14 +1,19 @@
-# BPE Pricing Demo - Python Dependencies
+# Drug Pricing Demo - Python Dependencies
 
 # MongoDB
-pymongo>=4.0.0
+pymongo==4.15.5
 
 # HTTP Requests (for API calls to Grove and MongoDB AI endpoints)
 requests>=2.31.0
 
-# LangChain (for Conv_history.py)
-langchain-mongodb>=0.1.0
-langchain-core>=0.1.0
+# LangChain Core
+langchain-core>=0.3.0
+langchain-mongodb>=0.2.0
+langchain-openai>=0.2.0
+
+# LangGraph (for AI Agent)
+langgraph>=0.2.0
+langgraph-checkpoint>=2.0.0
 
 # Flask (for API)
 flask>=2.0.0
@@ -17,7 +22,7 @@ flask>=2.0.0
 streamlit>=1.28.0
 
 # Utilities
-python-dotenv>=1.0.0
+python-dotenv==1.0.1
 
 # Note: We no longer use the openai or voyageai packages directly.
 # Instead, we use requests to call:
