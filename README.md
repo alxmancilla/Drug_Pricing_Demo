@@ -36,12 +36,59 @@ An **intelligent AI Agent** powered by **LangChain** and **LangGraph** that help
 
 ### Prerequisites
 
-- Python 3.8+
+- **Option A (Docker)**: Docker Desktop or Docker Engine + Docker Compose
+- **Option B (Python)**: Python 3.8+
 - MongoDB Atlas account
 - Grove Gateway API key (for OpenAI GPT-5.2)
 - Voyage AI API key (for embeddings)
 
-### 1. Setup Environment
+### 🐳 Option A: Docker Deployment (Recommended)
+
+**Fastest way to get started!**
+
+```bash
+# 1. Copy environment template (if not already done)
+cp .env.example .env
+
+# 2. Edit .env and add your API keys
+# (MONGODB_URI, GROVE_API_KEY, VOYAGE_API_KEY)
+
+# 3. Build and start with Docker Compose
+docker compose build
+docker compose up -d
+
+# 4. Access the UI
+# Open http://localhost:8501
+```
+
+**Or use Make commands (easier):**
+```bash
+make setup    # Initial setup (copies .env.example)
+make build    # Build Docker image
+make up       # Start containers
+make logs     # View logs
+make down     # Stop containers
+make status   # Check container status
+```
+
+**Quick commands:**
+```bash
+# View real-time logs
+docker compose logs -f
+
+# Check container status
+docker compose ps
+
+# Restart the application
+docker compose restart
+
+# Stop and remove containers
+docker compose down
+```
+
+See **[DOCKER_GUIDE.md](DOCKER_GUIDE.md)** for detailed Docker documentation and **[DOCKER_QUICKSTART.md](DOCKER_QUICKSTART.md)** for quick reference.
+
+### 🐍 Option B: Python Setup
 
 ```bash
 # Create virtual environment
@@ -89,7 +136,13 @@ Follow the instructions printed by `setup_database.py` to create:
 
 ### 5. Run the Application
 
-**🤖 Option A: AI Agent with Memory (Recommended)**
+**🐳 Docker (Recommended)**
+```bash
+docker-compose up -d
+# Access at http://localhost:8501
+```
+
+**🤖 Python: AI Agent with Memory**
 ```bash
 # CLI Agent
 python agent_app.py
@@ -98,7 +151,7 @@ python agent_app.py
 streamlit run agent_streamlit_app.py
 ```
 
-**📊 Option B: Basic Search Interface**
+**📊 Python: Basic Search Interface**
 ```bash
 # Basic CLI
 python app.py
@@ -180,9 +233,21 @@ Drug_Pricing_Demo/
 │   ├── TROUBLESHOOTING.md            # Full troubleshooting guide
 │   └── DATASET_EXPANSION.md          # Dataset details
 │
+├── 🐳 Docker Files
+│   ├── Dockerfile                    # Container image definition
+│   ├── docker-compose.yml            # Multi-container orchestration
+│   ├── .dockerignore                 # Files to exclude from image
+│   ├── docker-entrypoint.sh          # Container startup script
+│   ├── Makefile                      # Docker command shortcuts
+│   ├── DOCKER_QUICKSTART.md          # Quick reference card
+│   ├── DOCKER_GUIDE.md               # Complete Docker guide
+│   ├── DEPLOYMENT_CHECKLIST.md       # Deployment checklist
+│   └── DOCKER_IMPLEMENTATION_SUMMARY.md  # Implementation summary
+│
 ├── ⚙️ Configuration
 │   ├── requirements.txt              # Python dependencies
 │   ├── .env                          # Environment variables (create this)
+│   ├── .env.example                  # Environment template
 │   ├── run_agent.sh                  # Agent launcher (macOS/Linux)
 │   ├── run_agent.bat                 # Agent launcher (Windows)
 │   ├── run_streamlit.sh              # Basic UI launcher (macOS/Linux)
@@ -304,8 +369,14 @@ See **[TROUBLESHOOTING.md](TROUBLESHOOTING.md)** for comprehensive troubleshooti
 - **[FIX_VALIDATION_ERROR.md](FIX_VALIDATION_ERROR.md)** - Validation error fix
 - **[TROUBLESHOOTING.md](TROUBLESHOOTING.md)** - Full troubleshooting guide
 
+### Deployment & Infrastructure
+- **[DOCKER_QUICKSTART.md](DOCKER_QUICKSTART.md)** - Quick reference (start here!)
+- **[DOCKER_GUIDE.md](DOCKER_GUIDE.md)** - Complete Docker deployment guide
+- **[DEPLOYMENT_CHECKLIST.md](DEPLOYMENT_CHECKLIST.md)** - Step-by-step deployment checklist
+- **[Makefile](Makefile)** - Docker command shortcuts (`make help`)
+
 ### Other Documentation
-- **[STREAMLIT_UI.md](STREAMLIT_UI.md)** - Streamlit UI documentation
+- **[STREAMLIT_UI.md](STREAMLIT_UI.md)** - Streamlit UI documentation (if exists)
 - **[DATASET_EXPANSION.md](DATASET_EXPANSION.md)** - Dataset details
 
 ## 🎯 Key Differences: Agent vs Basic
