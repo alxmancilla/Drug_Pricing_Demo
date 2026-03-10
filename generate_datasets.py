@@ -1,14 +1,19 @@
 #!/usr/bin/env python3
 """
 Generate comprehensive datasets for Drug Pricing Demo
-Creates 50+ records for both drug_pricing and customer_pricing collections
+Creates 100+ records for both drug_pricing and customer_pricing collections
+Includes prescription medications and over-the-counter (OTC) medications
 """
 
 import json
 from datetime import datetime
 
-# Drug pricing data - 52 records
+# Drug pricing data - 100+ records (Prescription + OTC medications)
 drug_pricing_data = [
+    # ========================================
+    # PRESCRIPTION MEDICATIONS
+    # ========================================
+
     # Metformin - 8 records
     {"drug": "Metformin", "generic": "Metformin", "location": "Houston", "pharmacy": "CVS", "price": 8.50, "supply_days": 30, "customer_id": "acmehealth123"},
     {"drug": "Metformin", "generic": "Metformin", "location": "Houston", "pharmacy": "Walgreens", "price": 9.00, "supply_days": 30, "customer_id": "acmehealth123"},
@@ -83,6 +88,95 @@ drug_pricing_data = [
     {"drug": "Losartan", "generic": "Losartan", "location": "Detroit", "pharmacy": "Meijer", "price": 8.75, "supply_days": 30, "customer_id": "acmehealth123"},
     {"drug": "Losartan", "generic": "Losartan", "location": "Detroit", "pharmacy": "Walgreens", "price": 9.00, "supply_days": 30, "customer_id": "bestcare123"},
     {"drug": "Losartan", "generic": "Losartan", "location": "Grand Rapids", "pharmacy": "Walmart", "price": 8.50, "supply_days": 30, "customer_id": "bestcare123"},
+
+    # ========================================
+    # OVER-THE-COUNTER (OTC) MEDICATIONS
+    # ========================================
+
+    # Ibuprofen (Advil/Motrin) - 8 records
+    {"drug": "Advil", "generic": "Ibuprofen", "location": "Houston", "pharmacy": "CVS", "price": 12.99, "supply_days": 30, "customer_id": "acmehealth123"},
+    {"drug": "Advil", "generic": "Ibuprofen", "location": "Houston", "pharmacy": "Walgreens", "price": 11.99, "supply_days": 30, "customer_id": "acmehealth123"},
+    {"drug": "Ibuprofen", "generic": "Ibuprofen", "location": "Houston", "pharmacy": "Walmart", "price": 8.99, "supply_days": 30, "customer_id": "acmehealth123"},
+    {"drug": "Ibuprofen", "generic": "Ibuprofen", "location": "Houston", "pharmacy": "Costco", "price": 7.99, "supply_days": 30, "customer_id": "acmehealth123"},
+    {"drug": "Motrin", "generic": "Ibuprofen", "location": "Dallas", "pharmacy": "CVS", "price": 13.49, "supply_days": 30, "customer_id": "bestcare123"},
+    {"drug": "Ibuprofen", "generic": "Ibuprofen", "location": "Dallas", "pharmacy": "Tom Thumb", "price": 10.99, "supply_days": 30, "customer_id": "bestcare123"},
+    {"drug": "Ibuprofen", "generic": "Ibuprofen", "location": "Austin", "pharmacy": "H-E-B", "price": 9.49, "supply_days": 30, "customer_id": "acmehealth123"},
+    {"drug": "Ibuprofen", "generic": "Ibuprofen", "location": "San Antonio", "pharmacy": "Walgreens", "price": 11.49, "supply_days": 30, "customer_id": "bestcare123"},
+
+    # Acetaminophen (Tylenol) - 8 records
+    {"drug": "Tylenol", "generic": "Acetaminophen", "location": "Chicago", "pharmacy": "CVS", "price": 14.99, "supply_days": 30, "customer_id": "acmehealth123"},
+    {"drug": "Tylenol", "generic": "Acetaminophen", "location": "Chicago", "pharmacy": "Walgreens", "price": 13.99, "supply_days": 30, "customer_id": "acmehealth123"},
+    {"drug": "Acetaminophen", "generic": "Acetaminophen", "location": "Chicago", "pharmacy": "Jewel-Osco", "price": 10.99, "supply_days": 30, "customer_id": "bestcare123"},
+    {"drug": "Acetaminophen", "generic": "Acetaminophen", "location": "New York City", "pharmacy": "Walmart", "price": 9.99, "supply_days": 30, "customer_id": "acmehealth123"},
+    {"drug": "Tylenol", "generic": "Acetaminophen", "location": "New York City", "pharmacy": "CVS", "price": 15.49, "supply_days": 30, "customer_id": "acmehealth123"},
+    {"drug": "Tylenol", "generic": "Acetaminophen", "location": "New York City", "pharmacy": "Duane Reade", "price": 14.49, "supply_days": 30, "customer_id": "bestcare123"},
+    {"drug": "Acetaminophen", "generic": "Acetaminophen", "location": "Brooklyn", "pharmacy": "Rite Aid", "price": 11.99, "supply_days": 30, "customer_id": "acmehealth123"},
+    {"drug": "Acetaminophen", "generic": "Acetaminophen", "location": "Brooklyn", "pharmacy": "Costco", "price": 8.99, "supply_days": 30, "customer_id": "bestcare123"},
+
+    # Aspirin (Bayer) - 6 records
+    {"drug": "Bayer Aspirin", "generic": "Aspirin", "location": "Los Angeles", "pharmacy": "CVS", "price": 9.99, "supply_days": 30, "customer_id": "acmehealth123"},
+    {"drug": "Aspirin", "generic": "Aspirin", "location": "Los Angeles", "pharmacy": "Walgreens", "price": 7.99, "supply_days": 30, "customer_id": "acmehealth123"},
+    {"drug": "Aspirin", "generic": "Aspirin", "location": "Los Angeles", "pharmacy": "Costco", "price": 6.49, "supply_days": 30, "customer_id": "acmehealth123"},
+    {"drug": "Bayer Aspirin", "generic": "Aspirin", "location": "San Diego", "pharmacy": "CVS", "price": 10.49, "supply_days": 30, "customer_id": "bestcare123"},
+    {"drug": "Aspirin", "generic": "Aspirin", "location": "San Francisco", "pharmacy": "Walgreens", "price": 8.49, "supply_days": 30, "customer_id": "bestcare123"},
+    {"drug": "Aspirin", "generic": "Aspirin", "location": "San Francisco", "pharmacy": "Safeway", "price": 7.49, "supply_days": 30, "customer_id": "acmehealth123"},
+
+    # Claritin (Loratadine) - 6 records
+    {"drug": "Claritin", "generic": "Loratadine", "location": "Atlanta", "pharmacy": "CVS", "price": 18.99, "supply_days": 30, "customer_id": "acmehealth123"},
+    {"drug": "Claritin", "generic": "Loratadine", "location": "Atlanta", "pharmacy": "Walmart", "price": 15.99, "supply_days": 30, "customer_id": "acmehealth123"},
+    {"drug": "Loratadine", "generic": "Loratadine", "location": "Atlanta", "pharmacy": "Publix", "price": 12.99, "supply_days": 30, "customer_id": "bestcare123"},
+    {"drug": "Loratadine", "generic": "Loratadine", "location": "Charlotte", "pharmacy": "CVS", "price": 13.49, "supply_days": 30, "customer_id": "bestcare123"},
+    {"drug": "Claritin", "generic": "Loratadine", "location": "Charlotte", "pharmacy": "Walgreens", "price": 17.99, "supply_days": 30, "customer_id": "acmehealth123"},
+    {"drug": "Loratadine", "generic": "Loratadine", "location": "Charlotte", "pharmacy": "Costco", "price": 11.99, "supply_days": 30, "customer_id": "bestcare123"},
+
+    # Zyrtec (Cetirizine) - 6 records
+    {"drug": "Zyrtec", "generic": "Cetirizine", "location": "Miami", "pharmacy": "CVS", "price": 19.99, "supply_days": 30, "customer_id": "acmehealth123"},
+    {"drug": "Zyrtec", "generic": "Cetirizine", "location": "Miami", "pharmacy": "Publix", "price": 17.99, "supply_days": 30, "customer_id": "acmehealth123"},
+    {"drug": "Cetirizine", "generic": "Cetirizine", "location": "Miami", "pharmacy": "Walgreens", "price": 14.99, "supply_days": 30, "customer_id": "bestcare123"},
+    {"drug": "Cetirizine", "generic": "Cetirizine", "location": "Tampa", "pharmacy": "Walmart", "price": 13.99, "supply_days": 30, "customer_id": "acmehealth123"},
+    {"drug": "Zyrtec", "generic": "Cetirizine", "location": "Orlando", "pharmacy": "CVS", "price": 20.49, "supply_days": 30, "customer_id": "bestcare123"},
+    {"drug": "Cetirizine", "generic": "Cetirizine", "location": "Orlando", "pharmacy": "Costco", "price": 12.99, "supply_days": 30, "customer_id": "acmehealth123"},
+
+    # Benadryl (Diphenhydramine) - 5 records
+    {"drug": "Benadryl", "generic": "Diphenhydramine", "location": "Seattle", "pharmacy": "Walgreens", "price": 11.99, "supply_days": 30, "customer_id": "acmehealth123"},
+    {"drug": "Benadryl", "generic": "Diphenhydramine", "location": "Seattle", "pharmacy": "Costco", "price": 9.99, "supply_days": 30, "customer_id": "acmehealth123"},
+    {"drug": "Diphenhydramine", "generic": "Diphenhydramine", "location": "Seattle", "pharmacy": "Fred Meyer", "price": 8.99, "supply_days": 30, "customer_id": "bestcare123"},
+    {"drug": "Diphenhydramine", "generic": "Diphenhydramine", "location": "Portland", "pharmacy": "Walgreens", "price": 9.49, "supply_days": 30, "customer_id": "acmehealth123"},
+    {"drug": "Benadryl", "generic": "Diphenhydramine", "location": "Portland", "pharmacy": "CVS", "price": 12.49, "supply_days": 30, "customer_id": "bestcare123"},
+
+    # Tums (Calcium Carbonate) - 5 records
+    {"drug": "Tums", "generic": "Calcium Carbonate", "location": "Boston", "pharmacy": "CVS", "price": 8.99, "supply_days": 30, "customer_id": "acmehealth123"},
+    {"drug": "Tums", "generic": "Calcium Carbonate", "location": "Boston", "pharmacy": "Walgreens", "price": 8.49, "supply_days": 30, "customer_id": "acmehealth123"},
+    {"drug": "Calcium Carbonate", "generic": "Calcium Carbonate", "location": "Boston", "pharmacy": "Stop & Shop", "price": 6.99, "supply_days": 30, "customer_id": "bestcare123"},
+    {"drug": "Tums", "generic": "Calcium Carbonate", "location": "Cambridge", "pharmacy": "CVS", "price": 9.49, "supply_days": 30, "customer_id": "bestcare123"},
+    {"drug": "Calcium Carbonate", "generic": "Calcium Carbonate", "location": "Cambridge", "pharmacy": "Costco", "price": 5.99, "supply_days": 30, "customer_id": "acmehealth123"},
+
+    # Pepto-Bismol (Bismuth Subsalicylate) - 5 records
+    {"drug": "Pepto-Bismol", "generic": "Bismuth Subsalicylate", "location": "Denver", "pharmacy": "Walmart", "price": 10.99, "supply_days": 30, "customer_id": "acmehealth123"},
+    {"drug": "Pepto-Bismol", "generic": "Bismuth Subsalicylate", "location": "Denver", "pharmacy": "King Soopers", "price": 11.49, "supply_days": 30, "customer_id": "acmehealth123"},
+    {"drug": "Bismuth Subsalicylate", "generic": "Bismuth Subsalicylate", "location": "Denver", "pharmacy": "Walgreens", "price": 9.99, "supply_days": 30, "customer_id": "bestcare123"},
+    {"drug": "Pepto-Bismol", "generic": "Bismuth Subsalicylate", "location": "Colorado Springs", "pharmacy": "Safeway", "price": 11.99, "supply_days": 30, "customer_id": "bestcare123"},
+    {"drug": "Bismuth Subsalicylate", "generic": "Bismuth Subsalicylate", "location": "Colorado Springs", "pharmacy": "CVS", "price": 10.49, "supply_days": 30, "customer_id": "acmehealth123"},
+
+    # Mucinex (Guaifenesin) - 5 records
+    {"drug": "Mucinex", "generic": "Guaifenesin", "location": "Phoenix", "pharmacy": "CVS", "price": 16.99, "supply_days": 14, "customer_id": "acmehealth123"},
+    {"drug": "Mucinex", "generic": "Guaifenesin", "location": "Phoenix", "pharmacy": "Walgreens", "price": 15.99, "supply_days": 14, "customer_id": "acmehealth123"},
+    {"drug": "Guaifenesin", "generic": "Guaifenesin", "location": "Phoenix", "pharmacy": "Fry's", "price": 12.99, "supply_days": 14, "customer_id": "bestcare123"},
+    {"drug": "Guaifenesin", "generic": "Guaifenesin", "location": "Tucson", "pharmacy": "Walmart", "price": 11.99, "supply_days": 14, "customer_id": "bestcare123"},
+    {"drug": "Mucinex", "generic": "Guaifenesin", "location": "Tucson", "pharmacy": "CVS", "price": 17.49, "supply_days": 14, "customer_id": "acmehealth123"},
+
+    # Allegra (Fexofenadine) - 5 records
+    {"drug": "Allegra", "generic": "Fexofenadine", "location": "Philadelphia", "pharmacy": "CVS", "price": 21.99, "supply_days": 30, "customer_id": "acmehealth123"},
+    {"drug": "Allegra", "generic": "Fexofenadine", "location": "Philadelphia", "pharmacy": "Rite Aid", "price": 20.99, "supply_days": 30, "customer_id": "acmehealth123"},
+    {"drug": "Fexofenadine", "generic": "Fexofenadine", "location": "Philadelphia", "pharmacy": "Giant", "price": 16.99, "supply_days": 30, "customer_id": "bestcare123"},
+    {"drug": "Fexofenadine", "generic": "Fexofenadine", "location": "Pittsburgh", "pharmacy": "Walgreens", "price": 17.99, "supply_days": 30, "customer_id": "bestcare123"},
+    {"drug": "Allegra", "generic": "Fexofenadine", "location": "Pittsburgh", "pharmacy": "Costco", "price": 15.99, "supply_days": 30, "customer_id": "acmehealth123"},
+
+    # Sudafed (Pseudoephedrine) - 4 records
+    {"drug": "Sudafed", "generic": "Pseudoephedrine", "location": "Detroit", "pharmacy": "CVS", "price": 13.99, "supply_days": 14, "customer_id": "acmehealth123"},
+    {"drug": "Sudafed", "generic": "Pseudoephedrine", "location": "Detroit", "pharmacy": "Meijer", "price": 12.99, "supply_days": 14, "customer_id": "acmehealth123"},
+    {"drug": "Pseudoephedrine", "generic": "Pseudoephedrine", "location": "Detroit", "pharmacy": "Walgreens", "price": 11.99, "supply_days": 14, "customer_id": "bestcare123"},
+    {"drug": "Pseudoephedrine", "generic": "Pseudoephedrine", "location": "Grand Rapids", "pharmacy": "Walmart", "price": 10.99, "supply_days": 14, "customer_id": "bestcare123"},
 ]
 
 # Add last_updated timestamp to all records
